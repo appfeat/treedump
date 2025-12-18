@@ -5,8 +5,10 @@
 1. The directory tree structure (first)
 2. The contents of all **text files** in that tree (second)
 
-Binary files are ignored.  
+Binary files are never dumped.  
 The output file itself is never re-ingested.
+
+By default, hidden files and directories are excluded.
 
 This tool is designed for:
 - code review and audits
@@ -93,7 +95,7 @@ The built-in ignore list includes:
   `credentials`, `credentials.*`  
   `.aws/`, `.ssh/`
 
-This makes `treedump` safe by default in non-git directories and predictable inside git repositories.
+Hidden files are excluded by default at the directory traversal level.
 
 ---
 
@@ -145,6 +147,21 @@ Only file contents will be written.
 
 ---
 
+### Include hidden files and directories
+
+    treedump --include-hidden
+
+Includes dotfiles and dot-directories (such as `.env`, `.git/`, `.github/`),
+subject to ignore rules.
+
+---
+
+### Show version
+
+    treedump --version
+
+---
+
 ## Requirements
 
 - Python 3.9 or newer
@@ -162,6 +179,7 @@ These are standard on most Unix-like systems.
 
 - structure before content
 - text-only by default
+- hidden files excluded unless explicitly requested
 - explicit behavior over clever inference
 - safe defaults with deliberate escape hatches
 - boring, predictable output
