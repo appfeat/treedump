@@ -1,0 +1,87 @@
+# ================================
+# Python
+# ================================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.Python
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# ================================
+# Packaging / build
+# ================================
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# ================================
+# Test artifacts
+# ================================
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# ================================
+# Logs & runtime
+# ================================
+*.log
+*.pid
+
+# ================================
+# Secrets (IMPORTANT)
+# ================================
+.env
+.env.*
+*.env
+
+.secrets
+.secrets.*
+
+*.key
+*.pem
+*.crt
+*.p12
+*.keystore
+
+id_rsa
+id_ed25519
+*.pub
+
+credentials
+credentials.*
+
+.aws/
+.ssh/
+
+# ================================
+# Editor / IDE
+# ================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ================================
+# OS
+# ================================
+.DS_Store
+Thumbs.db
+
+# ================================
+# treedump output
+# ================================
+dump.txt
+project_dump.txt
