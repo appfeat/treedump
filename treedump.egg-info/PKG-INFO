@@ -1,0 +1,18 @@
+Metadata-Version: 2.4
+Name: treedump
+Version: 0.1.0
+Summary: Dump all text files in a directory tree into a single file
+Author: Your Name
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+
+# treedump
+
+treedump walks a directory tree and writes the contents of all text files
+into a single dump.txt file.
+
+Binary files and dump.txt itself are ignored.
+
+## Usage
+
+treedump
