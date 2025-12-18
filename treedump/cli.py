@@ -92,6 +92,11 @@ def main():
         help="do not include tree structure at the top of the dump",
     )
     parser.add_argument(
+        "--include-hidden",
+        action="store_true",
+        help="include hidden files and directories",
+    )
+    parser.add_argument(
         "--ignore-off",
         action="store_true",
         help="disable all ignore rules (except binary files and output file)",
@@ -130,7 +135,11 @@ def main():
 
     output_path.write_text("")
 
-    tree_output = run(["tree", "-a", "-if", "--noreport", "."])
+    tree_cmd = ["tree", "-if", "--noreport", "."]
+    if args.include_hidden:
+        tree_cmd.insert(1, "-a")
+
+    tree_output = run(tree_cmd)
 
     if not args.no_tree:
         with output_path.open("a") as out:
