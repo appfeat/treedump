@@ -4,8 +4,9 @@ import subprocess
 from pathlib import Path
 import fnmatch
 
+from treedump import __version__
+
 DEFAULT_IGNORE_PATTERNS = [
-    # tooling / noise
     ".git/*",
     "__pycache__/*",
     "venv/*",
@@ -15,12 +16,8 @@ DEFAULT_IGNORE_PATTERNS = [
     ".pytest_cache/*",
     ".idea/*",
     ".vscode/*",
-
-    # compiled / logs
     "*.pyc",
     "*.log",
-
-    # secrets / credentials
     ".env",
     ".env.*",
     "*.env",
@@ -80,6 +77,11 @@ def main():
         description="Dump all text files in a directory tree into a single file.",
     )
     parser.add_argument(
+        "-V", "--version",
+        action="version",
+        version=f"treedump {__version__}",
+    )
+    parser.add_argument(
         "--output",
         default="dump.txt",
         help="output file name (default: dump.txt)",
@@ -113,37 +115,29 @@ def main():
     output_path = root / args.output
     gitignore_path = root / ".gitignore"
 
-    # Build ignore patterns
     ignore_patterns = []
 
     if not args.ignore_off:
         if gitignore_path.exists():
-            # Use ONLY .gitignore if present
             ignore_patterns.extend(load_ignore_file(gitignore_path))
         else:
-            # Fall back to built-in defaults
             ignore_patterns.extend(DEFAULT_IGNORE_PATTERNS)
 
-        # Add user-provided ignores
         for ignore_file in args.ignore:
             ignore_patterns.extend(load_ignore_file(Path(ignore_file)))
 
         ignore_patterns.extend(args.ignore_pattern)
 
-    # Clear output
     output_path.write_text("")
 
-    # Generate tree once
-    tree_output = run(["tree", "-if", "--noreport", "."])
+    tree_output = run(["tree", "-a", "-if", "--noreport", "."])
 
-    # --- Tree structure ---
     if not args.no_tree:
         with output_path.open("a") as out:
             out.write("===== TREE STRUCTURE =====\n")
             out.write(tree_output)
             out.write("\n===== END TREE STRUCTURE =====\n\n")
 
-    # --- File contents ---
     for line in tree_output.splitlines():
         path = Path(line)
 

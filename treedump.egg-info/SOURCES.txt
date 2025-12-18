@@ -1,3 +1,4 @@
+LICENSE
 README.md
 pyproject.toml
 treedump/__init__.py
