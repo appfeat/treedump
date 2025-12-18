@@ -1,4 +1,4 @@
-# treedump
+# treedump 0.2.0
 
 `treedump` walks a directory tree and produces a single text dump containing:
 
